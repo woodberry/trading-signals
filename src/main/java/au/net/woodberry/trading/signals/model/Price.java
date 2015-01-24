@@ -1,4 +1,4 @@
-package au.net.woodberry.trading.signals.impl.domain;
+package au.net.woodberry.trading.signals.model;
 
 import org.joda.time.DateTime;
 

@@ -1,7 +1,7 @@
 package au.net.woodberry.trading.signals.examples.simple;
 
-import au.net.woodberry.trading.signals.impl.domain.Price;
-import au.net.woodberry.trading.signals.impl.domain.Stock;
+import au.net.woodberry.trading.signals.model.Price;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.joda.time.DateTime;
 
 import java.util.Arrays;

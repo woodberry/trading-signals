@@ -1,9 +1,9 @@
-package au.net.woodberry.trading.signals.impl;
+package au.net.woodberry.trading.signals.examples.simple;
 
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
 import au.net.woodberry.trading.signals.enums.Event;
 import au.net.woodberry.trading.signals.enums.State;
-import au.net.woodberry.trading.signals.impl.domain.Stock;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.squirrelframework.foundation.fsm.StateMachineBuilder;
 import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
 
@@ -20,18 +20,18 @@ import static au.net.woodberry.trading.signals.enums.State.WATCH;
 /**
  * A top level class which executes pre-defined trading conditions on a series of stocks  
  */
-public class StocksController {
+public class SimpleStocksController {
     
     private final TradingConditions<Stock> conditions;
     
-    private StateMachineBuilder<StocksStateMachine, State, Event, Stock> builder;
-    private Map<Stock, StocksStateMachine> stateMachines;
+    private StateMachineBuilder<SimpleStocksStateMachine, State, Event, Stock> builder;
+    private Map<Stock, SimpleStocksStateMachine> stateMachines;
 
     /**
      * @param conditions A pre-defined set of conditions from which to generate trading signals (state machine) changes from
      */
-    public StocksController(TradingConditions<Stock> conditions) {
-        this.builder = StateMachineBuilderFactory.create(StocksStateMachine.class, State.class, Event.class, Stock.class);
+    public SimpleStocksController(TradingConditions<Stock> conditions) {
+        this.builder = StateMachineBuilderFactory.create(SimpleStocksStateMachine.class, State.class, Event.class, Stock.class);
         this.stateMachines = new HashMap<>();
         this.conditions = conditions;
         initialize();
@@ -60,7 +60,7 @@ public class StocksController {
     }
 
     public void execute(Stock stock) {
-        StocksStateMachine stateMachine = getStateMachine(stock);
+        SimpleStocksStateMachine stateMachine = getStateMachine(stock);
         if (stateMachine == null) {
             throw new RuntimeException("Could not execute trading signal for stock [" + stock + "]. Stock was not found");
         }
@@ -88,7 +88,7 @@ public class StocksController {
         }
     }
     
-    private StocksStateMachine getStateMachine(Stock stock) {
+    private SimpleStocksStateMachine getStateMachine(Stock stock) {
         return stateMachines.containsKey(stock) ? stateMachines.get(stock) : null;
     }
 }

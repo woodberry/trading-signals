@@ -1,7 +1,7 @@
 package au.net.woodberry.trading.signals.examples.simple;
 
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
-import au.net.woodberry.trading.signals.impl.domain.Stock;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.squirrelframework.foundation.fsm.AnonymousCondition;
 
 public class SimpleTradingConditions implements TradingConditions<Stock> {
