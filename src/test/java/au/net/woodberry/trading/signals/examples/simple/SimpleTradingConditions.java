@@ -11,8 +11,8 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (isValid(stock)) {
-                    return stock.getPrices().get(latestPrice(stock)).getClose() >= 2; // Shortlist when close >= 2
+                if (stock.hasPrices()) {
+                    return stock.getLatestPrice().getClose() >= 2; // Shortlist when close >= 2
                 }
                 return false;
             }
@@ -24,8 +24,8 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (isValid(stock)) {
-                    return stock.getPrices().get(latestPrice(stock)).getClose() >= 3; // Enter when close >= 3
+                if (stock.hasPrices()) {
+                    return stock.getLatestPrice().getClose() >= 3; // Enter when close >= 3
                 }
                 return false;
             }
@@ -37,8 +37,8 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (isValid(stock)) {
-                    return stock.getPrices().get(latestPrice(stock)).getClose() >= 2; // Hold when close >= 2
+                if (stock.hasPrices()) {
+                    return stock.getLatestPrice().getClose() >= 2; // Hold when close >= 2
                 }
                 return false;
             }
@@ -50,19 +50,11 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (isValid(stock)) {
-                    return stock.getPrices().get(latestPrice(stock)).getClose() < 2; // Exit when close < 2
+                if (stock.hasPrices()) {
+                    return stock.getLatestPrice().getClose() < 2; // Exit when close < 2
                 }
                 return false;
             }
         };
-    }
-
-    private static boolean isValid(Stock stock) {
-        return stock != null && stock.getPrices() != null && !stock.getPrices().isEmpty();
-    }
-
-    private static int latestPrice(Stock stock) {
-        return stock.getPrices().size() - 1;
     }
 }

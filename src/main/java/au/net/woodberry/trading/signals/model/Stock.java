@@ -25,4 +25,17 @@ public class Stock {
     public String getSymbol() {
         return symbol;
     }
+    
+    public boolean hasPrices() {
+        return prices != null && !prices.isEmpty();
+    }
+    
+    public Price getLatestPrice() {
+        if (hasPrices()) {
+            int latest = getPrices().size() - 1;
+            return getPrices().get(latest);
+        }
+        return null;
+    }
+
 }

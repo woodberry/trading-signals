@@ -5,12 +5,16 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 
 /**
- * Demonstrates a simple example where
+ * Demonstrates a simple example that goes through each trading day, receives a data feed for a number of stocks 
+ * executes the various trading signals based on the simple trading conditions presented to it 
+ * 
+ * @see SimpleTradingConditions
+ *
  */
 public class SimpleRunner {
     
     static final SimpleTradingConditions TRADING_CONDITIONS = new SimpleTradingConditions();
-    static final SimpleStocksController CONTROLLER = new SimpleStocksController(TRADING_CONDITIONS);
+    static final SimpleController CONTROLLER = new SimpleController(TRADING_CONDITIONS);
     static final DateTime START = DateTime.parse("2012-01-01");
     static final DateTime END = DateTime.parse("2012-01-09");
     

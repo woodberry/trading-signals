@@ -20,18 +20,18 @@ import static au.net.woodberry.trading.signals.enums.State.WATCH;
 /**
  * A top level class which executes pre-defined trading conditions on a series of stocks  
  */
-public class SimpleStocksController {
+public class SimpleController {
     
     private final TradingConditions<Stock> conditions;
     
-    private StateMachineBuilder<SimpleStocksStateMachine, State, Event, Stock> builder;
-    private Map<Stock, SimpleStocksStateMachine> stateMachines;
+    private StateMachineBuilder<SimpleStateMachine, State, Event, Stock> builder;
+    private Map<Stock, SimpleStateMachine> stateMachines;
 
     /**
      * @param conditions A pre-defined set of conditions from which to generate trading signals (state machine) changes from
      */
-    public SimpleStocksController(TradingConditions<Stock> conditions) {
-        this.builder = StateMachineBuilderFactory.create(SimpleStocksStateMachine.class, State.class, Event.class, Stock.class);
+    public SimpleController(TradingConditions<Stock> conditions) {
+        this.builder = StateMachineBuilderFactory.create(SimpleStateMachine.class, State.class, Event.class, Stock.class);
         this.stateMachines = new HashMap<>();
         this.conditions = conditions;
         initialize();
@@ -60,7 +60,7 @@ public class SimpleStocksController {
     }
 
     public void execute(Stock stock) {
-        SimpleStocksStateMachine stateMachine = getStateMachine(stock);
+        SimpleStateMachine stateMachine = getStateMachine(stock);
         if (stateMachine == null) {
             throw new RuntimeException("Could not execute trading signal for stock [" + stock + "]. Stock was not found");
         }
@@ -88,7 +88,7 @@ public class SimpleStocksController {
         }
     }
     
-    private SimpleStocksStateMachine getStateMachine(Stock stock) {
+    private SimpleStateMachine getStateMachine(Stock stock) {
         return stateMachines.containsKey(stock) ? stateMachines.get(stock) : null;
     }
 }
