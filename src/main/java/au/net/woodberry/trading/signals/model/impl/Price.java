@@ -1,10 +1,11 @@
-package au.net.woodberry.trading.signals.model;
+package au.net.woodberry.trading.signals.model.impl;
 
+import au.net.woodberry.trading.signals.model.TimeSeries;
 import org.joda.time.DateTime;
 
-public class Price {
-    
-    private DateTime timestamp;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+public class Price extends TimeSeries {
     
     private double open;
 
@@ -19,6 +20,7 @@ public class Price {
     private double volume;
     
     public Price(DateTime timestamp, double open, double high, double low, double close, double adjustedClose, double volume) {
+        checkNotNull(timestamp);
         this.timestamp = timestamp;
         this.open = open;
         this.high = high;
@@ -26,10 +28,6 @@ public class Price {
         this.close = close;
         this.adjustedClose = adjustedClose;
         this.volume = volume;
-    }
-    
-    public DateTime getTimestamp() {
-        return timestamp;
     }
     
     public double getOpen() {

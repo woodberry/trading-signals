@@ -3,9 +3,10 @@ package au.net.woodberry.trading.signals.examples.simple;
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
 import au.net.woodberry.trading.signals.enums.Event;
 import au.net.woodberry.trading.signals.enums.State;
-import au.net.woodberry.trading.signals.model.Stock;
+import au.net.woodberry.trading.signals.model.impl.Stock;
 import org.squirrelframework.foundation.fsm.StateMachineBuilder;
 import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
+import org.squirrelframework.foundation.fsm.impl.AbstractStateMachine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +35,10 @@ public class SimpleController {
         this.builder = StateMachineBuilderFactory.create(SimpleStateMachine.class, State.class, Event.class, Stock.class);
         this.stateMachines = new HashMap<>();
         this.conditions = conditions;
-        initialize();
+        initializeBuilder(); // The internal transition / fsm logic...
     }
     
-    private void initialize() {
+    private void initializeBuilder() {
         builder.externalTransition().from(PASSIVE).to(WATCH).on(Event.SHORT_LISTED).when(conditions.shouldShortList());
         builder.externalTransition().from(WATCH).to(ENTER).on(Event.ENTRY_ALLOWED).when(conditions.shouldEnter());
         builder.externalTransition().from(ENTER).to(HOLD).on(Event.TRADE_ENTERED).when(conditions.shouldHold());
@@ -90,5 +91,9 @@ public class SimpleController {
     
     private SimpleStateMachine getStateMachine(Stock stock) {
         return stateMachines.containsKey(stock) ? stateMachines.get(stock) : null;
+    }
+
+    private static class SimpleStateMachine extends AbstractStateMachine<SimpleStateMachine, State, Event, Stock> {
+
     }
 }

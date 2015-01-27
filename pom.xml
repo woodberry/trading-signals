@@ -43,12 +43,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <source-compatibility>1.7</source-compatibility>
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <guava.version>18.0</guava.version>
         <squirrel-foundation.version>0.3.6</squirrel-foundation.version>
         <junit.version>4.11</junit.version>
         <joda-time.version>2.4</joda-time.version>
+        <ta4j.version>0.5</ta4j.version>
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.squirrelframework</groupId>
             <artifactId>squirrel-foundation</artifactId>
@@ -58,6 +65,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>eu.verdelhan</groupId>
+            <artifactId>ta4j</artifactId>
+            <version>${ta4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
