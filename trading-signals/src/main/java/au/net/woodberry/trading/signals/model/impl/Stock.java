@@ -2,6 +2,7 @@ package au.net.woodberry.trading.signals.model.impl;
 
 import au.net.woodberry.trading.signals.model.Instrument;
 import org.joda.time.ReadablePeriod;
+
 import java.util.List;
 
 public final class Stock extends Instrument<Price> {

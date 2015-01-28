@@ -9,12 +9,18 @@
         <artifactId>oss-parent</artifactId>
         <version>7</version>
     </parent>
-    
-    <groupId>au.net.woodberry</groupId>
-    <artifactId>trading-signals</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <name>Trading Signals</name>
 
+    <groupId>au.net.woodberry</groupId>
+    <artifactId>trading-signals-parent</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>Trading Signals :: Parent</name>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>trading-signals</module>
+        <module>trading-signals-examples</module>
+    </modules>
+    
     <distributionManagement>
         <repository>
             <id>woodberry-nexus</id>
@@ -50,48 +56,51 @@
         <ta4j.version>0.5</ta4j.version>
     </properties>
     
-    <dependencies>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.squirrelframework</groupId>
-            <artifactId>squirrel-foundation</artifactId>
-            <version>${squirrel-foundation.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>eu.verdelhan</groupId>
-            <artifactId>ta4j</artifactId>
-            <version>${ta4j.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>${joda-time.version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.squirrelframework</groupId>
+                <artifactId>squirrel-foundation</artifactId>
+                <version>${squirrel-foundation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>eu.verdelhan</groupId>
+                <artifactId>ta4j</artifactId>
+                <version>${ta4j.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
-                <configuration>
-                    <source>${source-compatibility}</source>
-                    <target>${source-compatibility}</target>
-                </configuration>
-            </plugin>
-        </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${source-compatibility}</source>
+                        <target>${source-compatibility}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     
 </project>
