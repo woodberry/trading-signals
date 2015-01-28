@@ -16,8 +16,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * A simple implementation of a generic data feed which contains both an instrument and its related time-series data
  *
  * @param <T> The instrument for the feed
- * @param <S> The time-series data 
+ * @param <S> The time-series data
  */
+@SuppressWarnings("unchecked")
 public class DataFeed<T extends Instrument, S extends TimeSeries> {
 
     private Map<T, List<S>> dataFeed = new HashMap<>();
