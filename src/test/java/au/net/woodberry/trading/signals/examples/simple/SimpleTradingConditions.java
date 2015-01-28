@@ -11,10 +11,7 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (stock.hasPrices()) {
-                    return stock.getLatestPrice().getClose() >= 2; // Shortlist when close >= 2
-                }
-                return false;
+                return stock.hasPrices() && stock.getLatestPrice().getClose() >= 2; // Shortlist when close >= 2
             }
         };
     }
@@ -24,10 +21,7 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (stock.hasPrices()) {
-                    return stock.getLatestPrice().getClose() >= 3; // Enter when close >= 3
-                }
-                return false;
+                return stock.hasPrices() && stock.getLatestPrice().getClose() >= 3; // Enter when close >= 3
             }
         };
     }
@@ -37,10 +31,7 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (stock.hasPrices()) {
-                    return stock.getLatestPrice().getClose() >= 2; // Hold when close >= 2
-                }
-                return false;
+                return stock.hasPrices() && stock.getLatestPrice().getClose() >= 2; // Hold when close >= 2
             }
         };
     }
@@ -50,10 +41,7 @@ public class SimpleTradingConditions implements TradingConditions<Stock> {
         return new AnonymousCondition<Stock>() {
             @Override
             public boolean isSatisfied(Stock stock) {
-                if (stock.hasPrices()) {
-                    return stock.getLatestPrice().getClose() < 2; // Exit when close < 2
-                }
-                return false;
+                return stock.hasPrices() && stock.getLatestPrice().getClose() < 2; // Exit when close < 2
             }
         };
     }

@@ -16,7 +16,6 @@ import java.util.Arrays;
  *
  */
 public class SimpleRunner {
-    
     static final SimpleTradingConditions TRADING_CONDITIONS = new SimpleTradingConditions();
     static final SimpleController CONTROLLER = new SimpleController(TRADING_CONDITIONS);
     static final DataFeed<Stock, Price> DATA_FEED = new DataFeed();

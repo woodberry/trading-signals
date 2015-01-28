@@ -15,14 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static au.net.woodberry.trading.signals.examples.watchlist.WatchlistActions.IncrementPeriod;
-import static au.net.woodberry.trading.signals.examples.watchlist.WatchlistActions.RemoveShortListedDate;
-import static au.net.woodberry.trading.signals.examples.watchlist.WatchlistActions.SetShortListDate;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class WatchlistController {
 
     private final StateMachineBuilder<WatchlistStateMachine, State, Event, Stock> builder;
+    private final TradingConditions<Stock> conditions;
     private final ReadablePeriod watchPeriod;
     private final DateTime startDate;
     private Map<Stock, WatchlistStateMachine> stateMachines;
@@ -30,14 +28,19 @@ public class WatchlistController {
     public WatchlistController(TradingConditions<Stock> conditions, DateTime startDate, ReadablePeriod watchPeriod) {
         this.builder = StateMachineBuilderFactory.create(WatchlistStateMachine.class, State.class, Event.class, Stock.class);
         this.stateMachines = new HashMap<>();
+        this.conditions = conditions;
         this.watchPeriod = watchPeriod;
         this.startDate = startDate;
+        initializeBuilder(); // The internal transition / fsm logic...
+    }
+
+    private void initializeBuilder() {
         builder.externalTransition().from(State.PASSIVE).to(State.WATCH).on(Event.SHORT_LISTED).when(conditions.shouldShortList());
         builder.externalTransition().from(State.WATCH).to(State.PASSIVE).on(Event.HAS_EXPIRED);
-        builder.internalTransition(TransitionPriority.HIGH).within(State.PASSIVE).on(Event.PERIOD_ELAPSED).perform(new IncrementPeriod());
-        builder.internalTransition(TransitionPriority.HIGH).within(State.WATCH).on(Event.PERIOD_ELAPSED).perform(new IncrementPeriod());
-        builder.onEntry(State.WATCH).perform(new SetShortListDate());
-        builder.onExit(State.WATCH).perform(new RemoveShortListedDate());
+        builder.internalTransition(TransitionPriority.HIGH).within(State.PASSIVE).on(Event.PERIOD_ELAPSED).perform(new WatchlistActions.IncrementPeriod());
+        builder.internalTransition(TransitionPriority.HIGH).within(State.WATCH).on(Event.PERIOD_ELAPSED).perform(new WatchlistActions.IncrementPeriod());
+        builder.onEntry(State.WATCH).perform(new WatchlistActions.SetShortListDate());
+        builder.onExit(State.WATCH).perform(new WatchlistActions.RemoveShortListedDate());
     }
 
     public void execute(Stock stock) {
