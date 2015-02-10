@@ -1,8 +1,8 @@
 package au.net.woodberry.trading.signals.examples.movingaverage;
 
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
-import au.net.woodberry.trading.signals.model.impl.Price;
-import au.net.woodberry.trading.signals.model.impl.Stock;
+import au.net.woodberry.trading.signals.model.Price;
+import au.net.woodberry.trading.signals.model.Stock;
 import eu.verdelhan.ta4j.Indicator;
 import eu.verdelhan.ta4j.TADecimal;
 import eu.verdelhan.ta4j.Tick;
@@ -33,10 +33,20 @@ public class MovingAverageTradingConditions implements TradingConditions<Stock> 
     }
 
     @Override
-    public AnonymousCondition<Stock> shouldHold() {
+    public AnonymousCondition<Stock> shouldNoLongerShortList() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public AnonymousCondition<Stock> shouldHold() {
+        throw new UnsupportedOperationException();
+    }
+    
+    @Override
+    public AnonymousCondition<Stock> shouldComplete() {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     public AnonymousCondition<Stock> shouldEnter() {
         return new AnonymousCondition<Stock>() {

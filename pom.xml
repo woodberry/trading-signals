@@ -12,7 +12,7 @@
 
     <groupId>au.net.woodberry</groupId>
     <artifactId>trading-signals-parent</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>Trading Signals :: Parent</name>
     <packaging>pom</packaging>
 

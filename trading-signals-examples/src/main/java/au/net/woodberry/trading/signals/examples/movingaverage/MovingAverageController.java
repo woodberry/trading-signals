@@ -3,7 +3,7 @@ package au.net.woodberry.trading.signals.examples.movingaverage;
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
 import au.net.woodberry.trading.signals.enums.Event;
 import au.net.woodberry.trading.signals.enums.State;
-import au.net.woodberry.trading.signals.model.impl.Stock;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.squirrelframework.foundation.fsm.StateMachineBuilder;
 import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
 import org.squirrelframework.foundation.fsm.impl.AbstractStateMachine;

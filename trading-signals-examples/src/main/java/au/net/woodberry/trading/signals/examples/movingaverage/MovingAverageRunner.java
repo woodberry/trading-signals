@@ -1,8 +1,8 @@
 package au.net.woodberry.trading.signals.examples.movingaverage;
 
 import au.net.woodberry.trading.signals.helpers.DataFeed;
-import au.net.woodberry.trading.signals.model.impl.Price;
-import au.net.woodberry.trading.signals.model.impl.Stock;
+import au.net.woodberry.trading.signals.model.Price;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 
@@ -14,7 +14,7 @@ public class MovingAverageRunner {
     static final int LONG_TERM = 10;
     static final MovingAverageTradingConditions TRADING_CONDITIONS = new MovingAverageTradingConditions(SHORT_TERM, LONG_TERM);
     static final MovingAverageController CONTROLLER = new MovingAverageController(TRADING_CONDITIONS);
-    static final DataFeed<Stock, Price> DATA_FEED = new DataFeed();
+    static final DataFeed DATA_FEED = new DataFeed();
     static final DateTime START = DateTime.parse("2014-06-20");
     static final DateTime END = DateTime.parse("2014-08-06");
     

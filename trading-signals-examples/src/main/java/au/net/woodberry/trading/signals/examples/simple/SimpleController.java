@@ -3,7 +3,7 @@ package au.net.woodberry.trading.signals.examples.simple;
 import au.net.woodberry.trading.signals.conditions.TradingConditions;
 import au.net.woodberry.trading.signals.enums.Event;
 import au.net.woodberry.trading.signals.enums.State;
-import au.net.woodberry.trading.signals.model.impl.Stock;
+import au.net.woodberry.trading.signals.model.Stock;
 import org.squirrelframework.foundation.fsm.StateMachineBuilder;
 import org.squirrelframework.foundation.fsm.StateMachineBuilderFactory;
 import org.squirrelframework.foundation.fsm.impl.AbstractStateMachine;
@@ -41,9 +41,10 @@ public class SimpleController {
     private void initializeBuilder() {
         builder.externalTransition().from(PASSIVE).to(WATCH).on(Event.SHORT_LISTED).when(conditions.shouldShortList());
         builder.externalTransition().from(WATCH).to(ENTER).on(Event.ENTRY_ALLOWED).when(conditions.shouldEnter());
+        builder.externalTransition().from(WATCH).to(PASSIVE).on(Event.HAS_EXPIRED).when(conditions.shouldNoLongerShortList());
         builder.externalTransition().from(ENTER).to(HOLD).on(Event.TRADE_ENTERED).when(conditions.shouldHold());
         builder.externalTransition().from(HOLD).to(EXIT).on(Event.STOP_LOSS_BREACHED).when(conditions.shouldExit());
-        builder.externalTransition().from(EXIT).to(PASSIVE).on(Event.TRADE_COMPLETED);
+        builder.externalTransition().from(EXIT).to(PASSIVE).on(Event.TRADE_COMPLETED).when(conditions.shouldComplete());
         builder.externalTransition().from(EXIT).to(WATCH).on(Event.TRADE_COMPLETED).when(conditions.shouldShortList());
     }
     
@@ -66,13 +67,14 @@ public class SimpleController {
             throw new RuntimeException("Could not execute trading signal for stock [" + stock + "]. Stock was not found");
         }
         if (stateMachine.getCurrentState() == null) { // Initial state
-            stateMachine.fireImmediate(Event.SHORT_LISTED, stock);
+            stateMachine.start();
         }
         switch (stateMachine.getCurrentState()) {
             case PASSIVE:
                 stateMachine.fire(Event.SHORT_LISTED, stock);
                 break;
             case WATCH:
+                stateMachine.fire(Event.HAS_EXPIRED, stock);
                 stateMachine.fire(Event.ENTRY_ALLOWED, stock);
                 break;
             case ENTER:
