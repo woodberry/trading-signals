@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 /**
  * Demonstrates a simple example that goes through each trading day, receives a data feed for a number of stocks 
- * executes the various trading signals based on the simple trading conditions presented to it 
+ * executes the various trading nop based on the simple trading conditions presented to it
  * 
  * @see SimpleTradingConditions
  *

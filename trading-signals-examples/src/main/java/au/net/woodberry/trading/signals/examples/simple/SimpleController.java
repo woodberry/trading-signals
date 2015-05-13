@@ -29,7 +29,7 @@ public class SimpleController {
     private Map<Stock, SimpleStateMachine> stateMachines;
 
     /**
-     * @param conditions A pre-defined set of conditions from which to generate trading signals (state machine) changes from
+     * @param conditions A pre-defined set of conditions from which to generate trading nop (state machine) changes from
      */
     public SimpleController(TradingConditions<Stock> conditions) {
         this.builder = StateMachineBuilderFactory.create(SimpleStateMachine.class, State.class, Event.class, Stock.class);
